@@ -1,1 +1,0 @@
-{"version":2,"defects":{"App\\Tests\\Controller\\HomeControllerTest::testIndex":8,"App\\Tests\\Controller\\IndexControllerTest::testIndex":8},"times":{"App\\Tests\\Controller\\HomeControllerTest::testIndex":0.917,"App\\Tests\\Controller\\IndexControllerTest::testIndex":0.022}}
