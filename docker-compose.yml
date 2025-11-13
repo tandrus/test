@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: symfony_php
+    working_dir: /var/www/project
+    volumes:
+      - ./project:/var/www/project
+      - ./docker/php/php.ini:/usr/local/etc/php/conf.d/custom.ini
+    command: sh -c "composer install && php bin/console doctrine:migrations:migrate --no-interaction && php-fpm"
+    networks:
+      - symfony
+    depends_on:
+      - mysql
+
+  nginx:
+    image: nginx:alpine
+    container_name: symfony_nginx
+    working_dir: /var/www/project
+    volumes:
+      - ./project:/var/www/project
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "9090:80"
+    networks:
+      - symfony
+    depends_on:
+      - php
+
+  mysql:
+    image: mysql:8.0
+    container_name: symfony_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - symfony
+
+  tests:
+    image: "eduki/php-vouchers-assignment:latest"
+    command: ["-s", "basic"]
+    environment:
+      APP_BASE_URL: "http://nginx:80"
+    networks:
+      - symfony
+
+networks:
+  symfony:
+    driver: bridge
+
+volumes:
+  mysql_data:
