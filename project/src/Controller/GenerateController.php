@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Service\Voucher as VoucherService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

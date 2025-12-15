@@ -11,6 +11,6 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 WORKDIR /var/www/project
 
-RUN composer install --no-scripts --no-autoloader --prefer-dist
+#RUN composer install --no-scripts --no-autoloader --prefer-dist
 
 RUN chown -R www-data:www-data /var/www

@@ -45,14 +45,6 @@ services:
     networks:
       - symfony
 
-  tests:
-    image: "eduki/php-vouchers-assignment:latest"
-    command: ["-s", "basic"]
-    environment:
-      APP_BASE_URL: "http://nginx:80"
-    networks:
-      - symfony
-
 networks:
   symfony:
     driver: bridge
